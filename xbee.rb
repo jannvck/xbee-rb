@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "serialport"
 require "observer"
+require 'logger'
 
 class UARTDataFrame
 	def initialize(data)
@@ -101,11 +102,14 @@ class APIFrame
 end
 
 class ATCommand < APIFrame
-	# opts hash arguments
-	# ::data
-	# ::frameID
-	# ::atCommand
-	# ::parameterValue
+	##
+	# Hand parameters as associative array.
+	#
+	# == Parameters:
+	# @param data frame buffer
+	# @param frameID frame ID
+	# @param atCommand AT command, e.g. "IS"
+	# @param parameterValue AT command parameter
 	def initialize(opts)
 		super(opts[:data])
 		if (opts[:data] != nil && opts[:data].length < 4 || opts[:data].length < 5 &&
@@ -145,12 +149,15 @@ class ATCommand < APIFrame
 end
 
 class ATCommandResponse < APIFrame
-	# opts hash arguments
-        # ::data
-        # ::frameID
-        # ::atCommand
-        # ::commandStatus
-	# ::commandData
+	##
+	# Hand parameters as associative array.
+	#
+	# == Parameters:
+	# @param data frame buffer
+	# @param frameID
+	# @param atCommand
+	# @param commandStatus
+	# @param commandData
 	def initialize(opts)
 		super(opts[:data])
                 if (opts[:data] != nil &&  opts[:data].length < 3 || opts[:data].length < 5 &&
@@ -200,10 +207,10 @@ end
 
 class ZigBeeIODataSampleRxIndicator < APIFrame
 	# opts hash arguments
-        # ::sourceAddr
-        # ::netAddr
-        # ::isBroadcast
-        # ::digitalChannelMask
+	# ::sourceAddr
+	# ::netAddr
+	# ::isBroadcast
+	# ::digitalChannelMask
 	# ::analogChannelMask
 	# ::digitalSamples
 	# ::analogSamples
@@ -716,8 +723,9 @@ class ZigBeeReceivePacket < APIFrame
 end
 
 class XBee
-	include Component
 	include Observable
+	Log = Logger.new(STDOUT)
+	Log.level = Logger::DEBUG
 	def initialize(serialPort)
 		@serialPort = serialPort
 	end
@@ -826,7 +834,6 @@ class XBee
 end
 
 class Node
-	include Component
 	attr_accessor :addr, :netAddr, :identifier
 	def getRemoteCommandRequest(atCommand, parameterValue)
 		RemoteCommandRequest.new(
