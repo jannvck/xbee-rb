@@ -1,5 +1,5 @@
 # xbee-rb
-Minimal XBee®/XBee-PRO® ZB library in Ruby.
+Minimal Digi XBee®/XBee-PRO® ZB library in Ruby.
 Host XBee is required to run in API mode.
 Not all API frames have been implemented but this library provides
 the means to send and receive data.
