@@ -46,14 +46,14 @@ xbee.receive # start receiving
 
 Implemented API Frames as corresponding class names:
 
-ATCommand
-ATCommandResponse
-ZigBeeIODataSampleRxIndicator
-ModemStatus
-RemoteCommandRequest
-RemoteCommandResponse
-NodeIdentificationIndicator
-ZigBeeTransmitRequest
-ZigBeeExplicitAddressingCommand
-ZigBeeTransmitStatus
-ZigBeeReceivePacket
+* ATCommand
+* ATCommandResponse
+* ZigBeeIODataSampleRxIndicator
+* ModemStatus
+* RemoteCommandRequest
+* RemoteCommandResponse
+* NodeIdentificationIndicator
+* ZigBeeTransmitRequest
+* ZigBeeExplicitAddressingCommand
+* ZigBeeTransmitStatus
+* ZigBeeReceivePacket
